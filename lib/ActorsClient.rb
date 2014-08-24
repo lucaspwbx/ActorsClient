@@ -20,9 +20,18 @@ module ActorsClient
       Actor.new(response["Name"], response["Age"])
     end
 
+    def delete(id)
+      response = self.class.delete("/actors/#{id}")
+      response.code
+    end
+
+    def update(id, attributes)
+      response = self.class.put("/actors/#{id}", body: JSON.generate(attributes))
+      response.code
+    end
+
     def create(attributes)
-      body = JSON.generate(attributes)
-      response = self.class.post("/actors", body: body)
+      response = self.class.post("/actors", body: JSON.generate(attributes))
       response.code
     end
   end

@@ -23,9 +23,25 @@ describe ActorsClient::Connection do
     expect(response.age).not_to be_nil
   end
 
-  it 'creates an actor' do
+  it 'deletes an actor' do
     conn = described_class.new
     
+    response = conn.delete(2)
+
+    expect(response).to eq(204)
+  end
+
+  it 'updates an actor' do
+    conn = described_class.new
+    
+    response = conn.update(1, name: 'Toxic')
+
+    expect(response).to eq(204)
+  end
+
+  it 'creates an actor' do
+    conn = described_class.new
+
     response = conn.create(name: 'Kollegah', age: 80)
 
     expect(response).to eq(201)
